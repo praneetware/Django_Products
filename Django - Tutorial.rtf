@@ -1,0 +1,134 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fmodern JetBrains Mono;}{\f2\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red207\green142\blue109;\red188\green190\blue196;\red86\green168\blue245;\red111\green115\blue122;\red106\green171\blue115;\red170\green73\blue38;\red42\green172\blue184;\red213\green183\blue120;\red186\green186\blue186;}
+{\*\generator Riched20 10.0.22621}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs22\lang9 TO INSTALL DJANGO\b0\par
+\tab pip install django\par
+\b SETTING UP DJANGO\par
+\ul\b0 Type in terminal window"Local(1)":\par
+\ulnone\tab django-admin startproject pyshop\tab\tab  //pyshop is name of project\par
+\tab python manage.py runserver\tab\tab\tab //runserver is argument,manage file\par
+\ul Open new terminal window "Local(2)":\par
+\ulnone\tab  python manage.py startapp products\tab\tab //products is name of app\par
+\b CREATING A NEW FUNCTION IN VIEWS("Index")\b0\par
+\ul GO TO VIEWS FILE UNDER (PRODUCTS) APP\ulnone\b\tab\tab\b0 #HTTP request is sent to this file\par
+\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\tab\cf1\f1\fs20 from \cf2 django.http \cf1 import \cf2 HttpResponse\line\f0\lang1033\tab\cf1\f1\lang9 from \cf2 django.shortcuts \cf1 import \cf2 render\line\line\line\f0\lang1033\tab\cf1\f1\lang9 def \cf3 index\cf2 (\cf4 request\cf2 ):\line     \f0\lang1033\tab\tab\cf1\f1\lang9 return \cf2 HttpResponse(\cf5 'Hello World'\cf2 )\par
+\par
+
+\pard\sa200\sl276\slmult1\cf0\b\f0\fs22 CREATE NEW FILE "urls" UNDER (Products) APP \tab\b0 #To call views \par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\tab\cf1\f1\fs20 from \cf2 django.urls \cf1 import \cf2 path\line\f0\lang1033\tab\cf1\f1\lang9 from \cf2 . \cf1 import \cf2 views\line\line\line\f0\lang1033\tab\f1\lang9 urlpatterns = [\line     \f0\lang1033\tab\f1\lang9 path(\cf5 ''\cf2 , views.index)\line\f0\lang1033\tab\f1\lang9 ]\par
+\cf0\b\f0\fs22 OPEN pyshop  -> urls\tab\tab\tab\tab\tab\b0 #Parent urls module\par
+\tab\cf1\f1\fs20 from \cf2 django.contrib \cf1 import \cf2 admin\line\f0\lang1033\tab\cf1\f1\lang9 from \cf2 django.urls \cf1 import \cf2 path, include\line\line\line\f0\lang1033\tab\f1\lang9 urlpatterns = [\line     \f0\lang1033\tab\f1\lang9 path(\cf5 'admin/'\cf2 , admin.site.urls),\line    \f0\lang1033\tab\f1\lang9 path(\cf5 'products/'\cf2 , include(\cf5 'products.urls'\cf2 ))\f0\lang1033\tab\cf0\fs22\lang9 #New line of code\par
+\tab\cf2\f1\fs20 ]\f0\lang1033\tab\tab\tab\tab\tab\tab\tab\tab #calling urls in app\par
+\cf0\b\fs22\lang9 CREATING A NEW FUNCTION IN VIEWS("New")\par
+\ul\b0 Follow the same steps above\par
+\ulnone\tab\cf1\f1\fs20 def \cf3 new\cf2 (\cf4 request\cf2 ):\line     \f0\lang1033\tab\cf1\f1\lang9 return \cf2 HttpResponse(\cf5 'New Products'\cf2 )\par
+\cf0\ul\f0\fs22 products/urls.py\par
+\ulnone\tab\cf1\f1\fs20 from \cf2 django.urls \cf1 import \cf2 path\line\f0\lang1033\tab\cf1\f1\lang9 from \cf2 . \cf1 import \cf2 views\line\line\f0\lang1033\tab\f1\lang9 urlpatterns = [\line     \f0\lang1033\tab\f1\lang9 path(\cf5 ''\cf2 , views.index),\line     \f0\lang1033\tab\f1\lang9 path(\cf5 'new'\cf2 , views.new)\f0\lang1033\tab\tab\tab\tab\tab\cf0\fs22\lang9 #New line of code\par
+\tab\cf2\f1\fs20 ]\par
+\cf0\b\f0\fs22\par
+CREATING MODELS IN DJANGO\par
+\tab\cf1\b0\f1\fs20 from \cf2 django.db \cf1 import \cf2 models\line\line\line\f0\lang1033\tab\cf1\f1\lang9 class \cf2 Product(models.Model):\line     \f0\lang1033\tab\tab\f1\lang9 name = models.CharField(\cf6 max_length\cf2 =\cf7 255\cf2 )\line     \f0\lang1033\tab\tab\f1\lang9 price = models.FloatField()\line     \f0\lang1033\tab\tab\f1\lang9 stock = models.IntegerField()\line     \f0\lang1033\tab\tab\f1\lang9 image_url = models.CharField(\cf6 max_length\cf2 =\cf7 2083\cf2 )\par
+\par
+\cf0\b\f0\fs22 MIGRATIONS\par
+\ul\b0 Go to settings.py and in the "installed apps" list, add the class taken from apps.py:\par
+\ulnone\tab\cf5\f1\fs20 'products.apps.ProductsConfig'\par
+\cf0\ul\f0\fs22 Then in terminal window type,\par
+\ulnone\tab python manage.py makemigrations\par
+\ul Go to \ulnone 0001_initial.py \ul under migrations file to see\par
+Then in terminal window type,\par
+\ulnone\tab python manage.py migrate\par
+\par
+\b MAKE NEW CLASS IN models.py AND MAKE MIGRATIONS\par
+\b0\tab\cf1\f1\fs20 class \cf2 Offer(models.Model):\line     \f0\lang1033\tab\tab\f1\lang9 code = models.CharField(\cf6 max_length\cf2 =\cf7 10\cf2 )\line     \f0\lang1033\tab\tab\f1\lang9 description = models.CharField(\cf6 max_length\cf2 =\cf7 255\cf2 )\line     \f0\lang1033\tab\tab\f1\lang9 discount = models.FloatField()\par
+\cf0\ul\f0\fs22\par
+In terminal window: \par
+\ulnone\tab python manage.py makemigrations\par
+\tab python manage.py migrate\par
+\b\par
+CREATING ADMIN\par
+\tab python manage.py createsuperuser\par
+\b0\tab\ul Type username, email, password. Open on website 127.0.0.1:8000/admin/\par
+\ulnone\b TO ADD NEW TABLE(other than groups and users) ON \ul\b0 127.0.0.1:8000/admin/\par
+Type in admin.py :\par
+\ulnone\tab\cf1\f1\fs20 from \cf2 django.contrib \cf1 import \cf2 admin\line\f0\lang1033\tab\cf1\f1\lang9 from \cf2 .models \cf1 import \cf2 Product\line\line\f0\lang1033\tab\f1\lang9 admin.site.register(Product)\par
+\cf0\b\f0\fs22 TO CUSTOMISE TABLE IN ADMIN\par
+\ul\b0 To display name on table with categories (in admin.py)\par
+\ulnone\tab\cf1\f1\fs20 from \cf2 django.contrib \cf1 import \cf2 admin\line\f0\lang1033\tab\cf1\f1\lang9 from \cf2 .models \cf1 import \cf2 Product\line\line\line\f0\lang1033\tab\cf1\f1\lang9 class \cf2 ProductAdmin(admin.ModelAdmin):\line     \f0\lang1033\tab\tab\f1\lang9 list_display = (\cf5 'name'\cf2 , \cf5 'price'\cf2 , \cf5 'stock'\cf2 )\line\line\f0\lang1033\tab\f1\lang9 admin.site.register(Product, ProductAdmin)\par
+\cf0\f0\fs22 Click Add Product to add more products\ul\par
+\ulnone\b CREATING TEMPLATES IN VIEWS FILE\par
+
+\pard\box\brdrdash\brdrw0 {\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\ul\b0 Product.objects.all()\ulnone  - Returns all the projects that we have in our data base\ul\par
+{\pntext\f2\'B7\tab}Product.objects.save()\ulnone  - Saving all the products\ul\par
+{\pntext\f2\'B7\tab}Product.objects.filter()\ulnone  - Filter products\ul\par
+{\pntext\f2\'B7\tab}Product.objects.get()\ulnone  - Getting single product\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\tab\cf1\f1\fs20 from \cf2 django.http \cf1 import \cf2 HttpResponse\line\f0\lang1033\tab\cf1\f1\lang9 from \cf2 django.shortcuts \cf1 import \cf2 render\line\f0\lang1033\tab\cf1\f1\lang9 from \cf2 .models \cf1 import \cf2 Product\line\line\f0\lang1033\tab\cf1\f1\lang9 def \cf3 index\cf2 (\cf4 request\cf2 ):\line     \f0\lang1033\tab\tab\cf4\f1\lang9 products \cf2 = Product.objects.all()\line     \f0\lang1033\tab\tab\cf1\f1\lang9 return \cf2 HttpResponse(\cf5 'Hello World'\cf2 )\line\line\f0\lang1033\tab\f1\lang9\line\cf0\ul\f0\fs22 Then add a new directory in products and name it "\b templates\b0 "\par
+Then create new file in templates folder - "index.html"\par
+\ulnone\tab\ul In views file change \cf1\ulnone\f1\fs20 return \cf2 HttpResponse(\cf5 'Hello World'\cf2 )\f0\lang1033   \cf0\ul\fs22\lang9 to  \par
+\ulnone\tab\cf1\f1\fs20 return \cf2 render(request, \cf5 'index.html'\cf2 , \{products: products\})\par
+\cf0\ul\f0\fs22 In index.html type:\par
+\ulnone\tab\cf8\f1\fs20 <h1>\cf2 Products\cf8 </h1>\line\f0\lang1033\tab\f1\lang9 <ul>\line     \f0\lang1033\tab\tab\cf2\f1\lang9\{% for product in products %\}\line         \f0\lang1033\tab\tab\cf8\f1\lang9 <li>\par
+\f0\lang1033\tab\tab\tab\tab\cf2\f1\lang9\{\{ product.name \}\}($\{\{ product.price \}\})\par
+\cf8\f0\lang1033\tab\tab\tab\f1\lang9 </li>\line     \f0\lang1033\tab\tab\cf2\f1\lang9\{% endfor %\}\line\f0\lang1033\tab\cf8\f1\lang9 </ul>\cf2\line\f0\lang1033  \tab\tab\tab\tab\cf0\fs22\lang9 #  The products are shown on webpage with bullet points)\par
+\cf2\f1\fs20\par
+\cf0\b\f0\fs22 RENDERING BOOTSTRAP COMPONENTS IN HTML \par
+\ul\b0 Inside templates folder create new file base.html\par
+Copy basic code structure of bootstrap from getbootstrap.com and copy to base.html\par
+Now edit the code in base.html like:\par
+\ulnone\tab\cf8\f1\fs20 <!doctype \cf9 html\cf8 >\line\f0\lang1033\tab\f1\lang9 <html \cf9 lang\cf5 ="en"\cf8 >\line   \f0\lang1033\tab\tab\f1\lang9 <head>\line     \f0\lang1033\tab\tab\f1\lang9 <meta \cf9 charset\cf5 ="utf-8"\cf8 >\line     \f0\lang1033\tab\tab\f1\lang9 <meta \cf9 name\cf5 ="viewport" \cf9 content\cf5 ="width=device-width, \f0\lang1033\tab\tab\tab\tab\tab\tab\tab\tab\tab\f1\lang9 initial-scale=1"\cf8 >\line     \f0\lang1033\tab\tab\f1\lang9 <title>\cf2 Bootstrap demo\cf8 </title>\line     \f0\lang1033\tab\tab\f1\lang9 <link \cf9 href\cf5 ="https://cdn.jsdelivr.net/npm/bootstrap@\f0\lang1033\tab\f1\lang9 5.3.2/dist/css/bootstrap.min.css" \cf9 rel\cf5 ="stylesheet" \f0\lang1033\tab\cf9\f1\lang9 integrity\cf5 ="sha384-\f0\lang1033\tab\f1\lang9 T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2H\f0\lang1033\tab\f1\lang9 N" \cf9 crossorigin\cf5 ="anonymous"\cf8 >\line   \f0\lang1033\tab\tab\f1\lang9 </head>\line   \f0\lang1033\tab\tab\f1\lang9 <body>\line     \f0\lang1033\tab\tab\tab\cf2\f1\lang9\{% blockcontent %\}\f0\lang1033\tab\tab\tab\tab\cf0\ul\fs22\lang9 #New line\cf2\ulnone\f1\fs20\line     \f0\lang1033\tab\tab\tab\f1\lang9\{% endblock %\}\line     \cf8   \f0\lang1033\tab\f1\lang9 </body>\line\f0\lang1033\tab\f1\lang9 </html>\par
+\cf0\ul\f0\fs22 Now go to index.html and type:\par
+\ulnone\tab\cf2\f1\fs20\{% 'extends base.html' %\}\f0\lang1033\tab\tab\tab\tab\tab #New line\f1\lang9\line\line\f0\lang1033\tab\f1\lang9\{% block content %\}\f0\lang1033\tab\tab\tab\tab\tab\tab #New line\f1\lang9\line    \f0\lang1033\tab\tab\cf8\f1\lang9 <h1>\cf2 Products\cf8 </h1>\line     \f0\lang1033\tab\tab\f1\lang9 <ul>\line        \f0\lang1033\tab\tab\cf2\f1\lang9\{% for product in products %\}\line             \f0\lang1033\tab\cf8\f1\lang9 <li>\cf2\{\{ product.name \}\}($\{\{ product.price \}\})\cf8 </li>\line         \f0\lang1033\tab\tab\cf2\f1\lang9\{% endfor %\}\line     \f0\lang1033\tab\tab\cf8\f1\lang9 </ul>\line\f0\lang1033\tab\cf2\f1\lang9\{% end block %\}\f0\lang1033\tab\tab\tab\tab\tab\tab\tab #New line\f1\lang9\par
+\cf0\b\f0\fs22 Go to bootstrap.com -> components -> cards \ul\b0 and paste it to index.html\par
+index.html\par
+\ulnone\tab\cf2\f1\fs20\{% 'extends base.html' %\}\line\line\f0\lang1033\tab\f1\lang9\{% block content %\}\line     \f0\lang1033\tab\cf8\f1\lang9 <h1>\cf2 Products\cf8 </h1>\line    \f0\lang1033\tab\f1\lang9 <div \cf9 class\cf5 ="row"\cf8 >\line         \cf2\{% for product in products %\}\line             \cf8 <div \cf9 class\cf5 ="col"\cf8 >\line                 <div \cf9 class\cf5 ="card" \cf9 style\cf5 ="width: 18rem;"\cf8 >\line                 <img \cf9 src\cf5 ="\{\{product.image_url\}\}" \cf9 class\cf5 ="card-img-top" \f0\lang1033\tab\tab\tab\tab\tab\tab\tab\tab\tab           \cf9\f1\lang9 alt\cf5 ="..."\cf8 >\line                     <div \cf9 class\cf5 ="card-body"\cf8 >\line                     <h5 \cf9 class\cf5 ="card-title"\cf8 >\cf2\{\{ product.name\}\}\cf8 </h5>\line                     <p \cf9 class\cf5 ="card-text"\cf8 >\cf2 $\{\{ product.price\}\}\cf8 </p>\line                     <a \cf9 href\cf5 ="#" \cf9 class\cf5 ="btn btn-primary"\cf8 >\cf2 Add to \f0\lang1033\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\f1\lang9 Cart\cf8 </a>\line                     </div>\line                 </div>\line             </div>\line         \cf2\{% endfor %\}\line     \f0\lang1033\tab\cf8\f1\lang9 </div>\line\f0\lang1033\tab\cf2\f1\lang9\{% end block %\}\par
+\cf0\f0\fs22 The webpage is ready with images and cards of products\par
+\cf2\f1\fs20\par
+\cf0\b\f0\fs22 FINAL TOUCHES\par
+
+\pard\box\brdrdash\brdrw0 {\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1 Navbar - \b0 getbootstrap.com\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\tab\ul Add the following code in body section of base.html\par
+\ulnone\tab\cf8\f1\fs20 <nav \cf9 class\cf5 ="navbar bg-body-tertiary"\cf8 >\line     \f0\lang1033\tab\f1\lang9 <div \cf9 class\cf5 ="container-fluid"\cf8 >\line     \f0\lang1033\tab\tab\f1\lang9 <a \cf9 class\cf5 ="navbar-brand" \cf9 href\cf5 ="#"\cf8 >\cf2 Navbar\cf8 </a>\line    \f0\lang1033\tab\f1\lang9  </div>\line\f0\lang1033\tab\f1\lang9 </nav>\par
+\par
+
+\pard\box\brdrdash\brdrw0 {\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1\cf0\ul\f0\fs22 Create separate directory templates to store base.html and hence, make it reusable to use in multiple apps. Drag base.html from templates under products to separate templates directory\ulnone\b\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\b0\tab\ul To avoid error go to settings.py and under TEMPLATES[] -> DIRS[] -> type:\par
+\ulnone\tab\tab\cf2\f1\fs20 os.path.join(BASE_DIR), \cf5 'templates'\par
+\cf0\b\f0\fs22\par
+
+\pard\box\brdrdash\brdrw0 {\pntext\f2\'B7\tab}{\*\pn\pnlvlblt\pnf2\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1 Padding - \ul\b0 Type in base.html\ulnone\b\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\b0\tab\cf8\f1\fs20 <div \cf9 class\cf5 ="container"\cf8 >\line   \f0\lang1033\tab\tab\cf2\f1\lang9\{% blockcontent %\}\line   \f0\lang1033\tab\tab\f1\lang9\{% endblock %\}\line\f0\lang1033\tab\cf8\f1\lang9 </div>\par
+\par
+\cf0\b\f0\fs22\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\cf2\b0\f1\fs20\par
+\par
+
+\pard\box\brdrdash\brdrw0 \sa200\sl276\slmult1\par
+\par
+\cf0\ul\f0\fs22\par
+\ulnone\b\par
+\b0\par
+\par
+\ul\par
+\par
+\par
+\cf2\ulnone\f1\fs20\par
+\par
+\par
+\par
+\par
+\cf0\b\f0\fs22\par
+\cf2\b0\f1\fs20\par
+
+\pard\sa200\sl276\slmult1\cf0\b\f0\fs22\par
+\par
+\tab\par
+\b0\par
+}
+ 
